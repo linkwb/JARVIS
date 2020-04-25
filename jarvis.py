@@ -34,19 +34,19 @@ while "exit" not in prompt:
         engine.say("The time is "+time.strftime("%H:%M")+".")
         engine.runAndWait()
 
-        print("How else might I be of assistance, Sir?\n")
-        engine.say("How else might I be of assistance, Sir?")
+        print("How else might I be of assistance?\n")
+        engine.say("How else might I be of assistance?")
         engine.runAndWait()
         prompt = input("> ")
-    
+
     #date
     elif "date" in prompt:
         print("The date is "+time.strftime("%m-%d-%y")+".")
         engine.say("The date is "+time.strftime("%m-%d-%y")+".")
         engine.runAndWait()
 
-        print("How else might I be of assistance, Sir?\n")
-        engine.say("How else might I be of assistance, Sir?")
+        print("How else might I be of assistance?\n")
+        engine.say("How else might I be of assistance?")
         engine.runAndWait()
         prompt = input("> ")
 
@@ -56,8 +56,8 @@ while "exit" not in prompt:
         engine.say("Your current location is "+city+", "+region+".")
         engine.runAndWait()
 
-        print("How else might I be of assistance, Sir?\n")
-        engine.say("How else might I be of assistance, Sir?")
+        print("How else might I be of assistance?\n")
+        engine.say("How else might I be of assistance?")
         engine.runAndWait()
         prompt = input("> ")
 
@@ -67,16 +67,16 @@ while "exit" not in prompt:
         engine.say("The weather in "+city+", "+region+" is "+str(weather.get_temperature('fahrenheit')['temp'])+" degrees Fahrenheit.")
         engine.runAndWait()
 
-        print("How else might I be of assistance, Sir?\n")
-        engine.say("How else might I be of assistance, Sir?")
+        print("How else might I be of assistance?\n")
+        engine.say("How else might I be of assistance?")
         engine.runAndWait()
         prompt = input("> ")
 
     #error
     else:
-        print("Sorry, Sir. I seem to be malfunctioning. Please try again.\n")
+        print("Sorry. I seem to be malfunctioning. Please try again.\n")
         prompt = input("> ")
-        
+
 print("I'll get back to running calculations, Sir.\n")
-engine.say("I'll get back to running calculations, Sir.")
+engine.say("I'll get back to running calculations.")
 engine.runAndWait()
