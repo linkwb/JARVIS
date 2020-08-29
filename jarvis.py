@@ -3,6 +3,7 @@ import json
 import urllib.request
 import pyowm
 import pyttsx3
+import requests
 import speech_recognition as sr
 
 owm = pyowm.OWM('7451715cb6e843730e4c2c5c894788cc')
@@ -50,6 +51,15 @@ def recognize_speech_from_mic(r, mic):
     return response
 
 
+def get_joke():
+    response = requests.get("https://sv443.net/jokeapi/v2/joke/Programming,Miscellaneous,Pun?blacklistFlags=nsfw,religious,political,racist,sexist&format=txt")
+
+    if response.ok:
+        return response.text
+    else:
+        print("Joke failed.")
+
+
 # initial prompt
 print("Hello, William. The time is "+time.strftime("%H:%M")+". How can I be of assistance?\n")
 engine.say("Hello, William. The Time is "+time.strftime("%H:%M")+". How can I be of assistance?")
@@ -59,11 +69,11 @@ prompt = speech["transcription"]
 
 # begin while loop
 while "shut down" not in prompt:
-    
-    # time
-    if "time" in prompt:
-        print("The time is "+time.strftime("%H:%M")+".")
-        engine.say("The time is "+time.strftime("%H:%M")+".")
+
+    # date
+    if "date" in prompt:
+        print("The date is "+time.strftime("%m-%d-%y")+".")
+        engine.say("The date is "+time.strftime("%m-%d-%y")+".")
         engine.runAndWait()
 
         print("How else might I be of assistance?\n")
@@ -72,10 +82,12 @@ while "shut down" not in prompt:
         speech = recognize_speech_from_mic(r, mic)
         prompt = speech["transcription"]
 
-    # date
-    elif "date" in prompt:
-        print("The date is "+time.strftime("%m-%d-%y")+".")
-        engine.say("The date is "+time.strftime("%m-%d-%y")+".")
+    # joke
+    elif "joke" in prompt:
+
+        joke = get_joke()
+        print(joke)
+        engine.say(joke)
         engine.runAndWait()
 
         print("How else might I be of assistance?\n")
@@ -88,6 +100,18 @@ while "shut down" not in prompt:
     elif "location" in prompt:
         print("Your current location is "+city+", "+region+".")
         engine.say("Your current location is "+city+", "+region+".")
+        engine.runAndWait()
+
+        print("How else might I be of assistance?\n")
+        engine.say("How else might I be of assistance?")
+        engine.runAndWait()
+        speech = recognize_speech_from_mic(r, mic)
+        prompt = speech["transcription"]
+
+    # time
+    elif "time" in prompt:
+        print("The time is " + time.strftime("%H:%M") + ".")
+        engine.say("The time is " + time.strftime("%H:%M") + ".")
         engine.runAndWait()
 
         print("How else might I be of assistance?\n")
